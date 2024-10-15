@@ -4,32 +4,45 @@
 #include <chrono>
 using namespace std;
 
-string fileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/unigram_freq.txt";
-const string letters = "bringbackthegold"; // cant do array because typing through all the ' would take too long during a game of scrabble
+string ReadFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/unigram_freq.txt";
+string PutFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/Valid_words.txt";
+
+const string letters = "givethanksla"; // cant do array because typing through all the ' would take too long during a game of scrabble. spacebar is a wild
 string piss = letters; // temp for searching
 string balls = ""; // temp for current word to be tested
 
 int main() {
 
-  ifstream GetFile; 
-  GetFile.open(fileLocation);
+ 
+  ifstream GetFile; // file to read from
+  GetFile.open(ReadFileLocation);
   while (!GetFile.is_open()) { // wait until open file
-    cout << "File unable to open" << endl;
-    _sleep(5000); // I know its depricated :(
-    GetFile.open(fileLocation); 
+    cout << "Get File unable to open" << endl;
+    _sleep(5000);
+    GetFile.open(ReadFileLocation); 
   }
 
-  while (getline(GetFile, balls)) { // whole file
-  // for (int r = 0; r < 10000; r++) { // for testing so we dont use the whole file
-  //   getline(GetFile, balls);
 
-    balls = balls.substr(0, balls.find(',')); // use the word not the frequency
-    
+  ofstream PutFile; // file to put to
+  PutFile.open(PutFileLocation); // creates file I dont think I need to wait for that
+  while (!PutFile.is_open()) { // wait until open file
+    cout << "Put File unable to open" << endl;
+    _sleep(5000);
+    GetFile.open(PutFileLocation); 
+  }
+
+
+  while (getline(GetFile, balls)) { // whole file
+
+    balls = balls.substr(0, balls.find(','));
+
     piss = letters; // reset temp value
 
     for (int i = 0; i < balls.length(); i++) { // for every letter in word
       
       if (piss == "") { // out of usable letters
+        // cout << "out of letters" << endl;
+
         break;
       }
       
@@ -40,17 +53,21 @@ int main() {
 
 
       } else { // letter missing
+        // cout << "letter missing" << endl;
         break;
       }
 
       if (i == balls.length() - 1) {
         cout << "valid word: " << balls << endl;
+        PutFile << balls.length() << " " << balls << endl;
       }
       
     }
 
   }
 
-  GetFile.close();
   // cout << "we up" << endl;
+
+  GetFile.close();
+  PutFile.close();
 }
