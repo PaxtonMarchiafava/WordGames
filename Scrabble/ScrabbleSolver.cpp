@@ -4,10 +4,10 @@
 #include <chrono>
 using namespace std;
 
-string ReadFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/unigram_freq.txt";
-string PutFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/Valid_words.txt";
+string ReadFileLocation = "Path/unigram_freq.txt";
+string PutFileLocation = "Path/Valid_words.txt";
 
-const string letters = "givethanksla"; // cant do array because typing through all the ' would take too long during a game of scrabble. spacebar is a wild
+const string letters = "givethanks"; // cant do array because typing through all the ' would take too long during a game of scrabble. spacebar is a wild
 string piss = letters; // temp for searching
 string balls = ""; // temp for current word to be tested
 
@@ -42,23 +42,32 @@ int main() {
       
       if (piss == "") { // out of usable letters
         // cout << "out of letters" << endl;
-
+        
         break;
       }
-      
 
+     
       if (piss.find(balls.at(i)) != -1) { // iff ith letter of balls is in piss
 
         piss = piss.substr(0, piss.find(balls.at(i))) + piss.substr(piss.find(balls.at(i)) + 1, piss.length() - piss.find(balls.at(i))); // remove letter from temp
 
 
       } else { // letter missing
-        // cout << "letter missing" << endl;
-        break;
+
+        if (piss.find(' ') != -1) { // wild letter
+          piss = piss.substr(0, piss.find(' ')) + piss.substr(piss.find(' ') + 1, piss.length() - piss.find(' ')); // remove letter from temp
+          // cout << "Wild used" << endl;
+
+        } else {
+          // cout << "letter missing" << endl;
+          break;
+        }
+
+
       }
 
       if (i == balls.length() - 1) {
-        cout << "valid word: " << balls << endl;
+        // cout << "valid word: " << balls << endl;
         PutFile << balls.length() << " " << balls << endl;
       }
       
