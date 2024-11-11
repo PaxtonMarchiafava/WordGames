@@ -1,14 +1,16 @@
-// Generates ways to reconfigure signs made of blocks so they can say different things
+
+
+
 
 #include <iostream>
 #include <fstream>
 #include <chrono>
 using namespace std;
 
-string ReadFileLocation = "Path/Text Files/unigram_freq.txt";
-string PutFileLocation = "Path/Text Files/Valid_words.txt";
+string ReadFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/unigram_freq.txt";
+string PutFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/Valid_words.txt";
 
-const string letters = "givethanks"; // cant do array because typing through all the ' would take too long during a game of scrabble. spacebar is a wild
+const string letters = "merrychristmas"; // cant do array because typing through all the ' would take too long during a game of scrabble. spacebar is a wild
 string remainingLetters = ""; // temp for ???
 string remainingLetters2 = ""; // temp for ???
 string word = ""; // temp for current word to be tested
@@ -77,7 +79,7 @@ int main() {
     PutFile.open(PutFileLocation); 
   }
 
-
+  cout << "Generating" << endl;
   while (getline(GetFile, word)) { // whole file
     while (word.at(0) == '/') { // push past comments
       getline(GetFile, word);   
@@ -89,7 +91,7 @@ int main() {
 
     if (remainingLetters != "!") {
 
-      cout << word << endl;
+      // cout << word << endl;
 
       while (getline(GetFile2, word2)) { // check file again
 
@@ -102,7 +104,7 @@ int main() {
         remainingLetters2 = isValid(word2, remainingLetters + word.at(word.length() - 1)); // check valid
         
         if (remainingLetters2 != "!" && word2.find(word.at(word.length() - 1)) != -1) { // if word2 valid and word2 contains final letter of word
-          PutFile << "." << remainingLetters2.length() << " " << word << " " << word2 << endl;// the . with number of remaining letters is so it is easy to CTRL + F through the giant files this code generates. I may change the code to sort by remaining letters in the future.
+          PutFile << "." << remainingLetters2.length() << " " << word << " " << word2 << endl; // the . with number of remaining letters is so it is easy to CTRL + F through the giant files this code generates. I may change the code to sort by remaining letters in the future.
 
         }
       }
@@ -120,3 +122,7 @@ int main() {
   cout << "we up" << endl;
 
 }
+
+
+
+
