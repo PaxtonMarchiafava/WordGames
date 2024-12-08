@@ -1,23 +1,20 @@
 
-
-
-
 #include <iostream>
 #include <fstream>
 #include <chrono>
 using namespace std;
 
-string ReadFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/unigram_freq.txt";
-string PutFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/Valid_words.txt";
 
-const string letters = "merrychristmas"; // cant do array because typing through all the ' would take too long during a game of scrabble. spacebar is a wild
+const string letters = "christmas"; // Faster to type a string than char array
 string remainingLetters = ""; // temp for ???
 string remainingLetters2 = ""; // temp for ???
 string word = ""; // temp for current word to be tested
 string word2 = ""; // temp for current word to be tested
 
+string ReadFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/unigram_freq.txt";
+string PutFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/" + letters + "_Valid_cross_words.txt";
 
-// returns unused letters
+// returns unused letters, ! if not possible
 string isValid (string TestWord, string AvailableLetters) {
   
   for (int i = 0; i < TestWord.length(); i++) { // for every letter in word
@@ -81,48 +78,56 @@ int main() {
 
   cout << "Generating" << endl;
   while (getline(GetFile, word)) { // whole file
+  // for (int j = 0; j < 10000; j++) {
+  //   getline(GetFile, word);
+
     while (word.at(0) == '/') { // push past comments
       getline(GetFile, word);   
     }
 
     word = word.substr(0, word.find(','));
-    remainingLetters = isValid(word, letters);
+
+    if (word.length() > 2) {
+      remainingLetters = isValid(word, letters);
 
 
-    if (remainingLetters != "!") {
+      if (remainingLetters != "!") {
 
-      // cout << word << endl;
+        // cout << word << endl;
 
-      while (getline(GetFile2, word2)) { // check file again
+        while (getline(GetFile2, word2)) { // check file again
+        // for (int i = 0; i < 10000; i++) {
+        //   getline(GetFile2, word2);
+          
+          while (word2.at(0) == '/') { // push past comments
+            getline(GetFile2, word2);
+          }
+          word2 = word2.substr(0, word2.find(',')); // format to just word
 
-        while (word2.at(0) == '/') { // push past comments
-          getline(GetFile2, word2);
+          if (word2.length() > 2) {
+            
+            remainingLetters2 = isValid(word2, remainingLetters + word.at(word.length() - 1)); // check valid
+            
+            if (remainingLetters2 != "!" && word2.find(word.at(word.length() - 1)) != -1) { // if word2 valid and word2 contains final letter of word
+              PutFile << "." << remainingLetters2.length() << " " << word << " " << word2 << endl; // the . with number of remaining letters is so it is easy to CTRL + F through the giant files this code generates. I may change the code to sort by remaining letters in the future.
+
+            }
+          }
         }
-        word2 = word2.substr(0, word2.find(',')); // format to just word
-        
 
-        remainingLetters2 = isValid(word2, remainingLetters + word.at(word.length() - 1)); // check valid
-        
-        if (remainingLetters2 != "!" && word2.find(word.at(word.length() - 1)) != -1) { // if word2 valid and word2 contains final letter of word
-          PutFile << "." << remainingLetters2.length() << " " << word << " " << word2 << endl; // the . with number of remaining letters is so it is easy to CTRL + F through the giant files this code generates. I may change the code to sort by remaining letters in the future.
+        GetFile2.close();
+        GetFile2.open(ReadFileLocation);
+        // GetFile2.seekg(0); // Not sure why I cant just do this
 
-        }
       }
-
-      GetFile2.close();
-      GetFile2.open(ReadFileLocation);
-      // GetFile2.seekg(0); // Not sure why I cent just do this
-
+      
     }
+    
   }
 
   GetFile.close();
   GetFile2.close();
   PutFile.close();
-  cout << "we up" << endl;
+  cout << endl << endl << endl << endl << "List Generated" << endl;
 
 }
-
-
-
-
