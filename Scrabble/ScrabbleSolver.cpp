@@ -1,18 +1,18 @@
-
 #include <iostream>
 #include <fstream>
 #include <chrono>
 using namespace std;
 
-string ReadFileLocation = "Path/Text Files/unigram_freq.txt";
-string PutFileLocation = "Path/Text Files/Valid_words.txt";
 
-const string letters = "Givethanks"; // cant do array because typing through all the ' would take too long during a game of scrabble. spacebar is a wild
+const string letters = "airplane"; // cant do array because typing through all the ' would take too long during a game of scrabble. spacebar is a wild
 string piss = ""; // temp for ???
 string balls = ""; // temp for current word to be tested
 
 
-// returns unused letters. if not possible, returns "!"
+string ReadFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/unigram_freq.txt";
+string PutFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/Scrabble solver/Text Files/" + letters + "_Valid_words.txt";
+
+// returns unused letters
 string isValid (string TestWord, string AvailableLetters) {
   
   for (int i = 0; i < TestWord.length(); i++) { // for every letter in word
@@ -50,6 +50,7 @@ string isValid (string TestWord, string AvailableLetters) {
 
 int main() {
 
+
  
   ifstream GetFile; // file to read from
   GetFile.open(ReadFileLocation);
@@ -68,24 +69,33 @@ int main() {
     GetFile.open(PutFileLocation); 
   }
 
-
+  cout << "files open. generating list" << endl;
   while (getline(GetFile, balls)) { // whole file
   // for (int r = 0; r < 10000; r++) {
   //   getline(GetFile, balls);
 
+    while (balls.at(0) == '/'){ // skip comments
+      getline(GetFile, balls);   
+    }
+    
+
+
     balls = balls.substr(0, balls.find(','));
     piss = isValid(balls, letters);
 
+    // cout << balls.length() << " " << balls << endl;
+
     if (piss != "!") {
-      // cout << balls.length() << " " << balls << endl;
+      
       PutFile << balls.length() << " " << balls << endl;
+      
     }
+
 
   }
 
-  cout << "we up" << endl;
+  cout << endl << endl << endl << endl << "List Generated" << endl;
 
   GetFile.close();
   PutFile.close();
 }
-
