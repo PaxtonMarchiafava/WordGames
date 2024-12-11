@@ -1,11 +1,18 @@
 // finds the words that fit within your phone number. too bad people are forgetting that there are letters asociated with numbers.
+// for example: the phone number:
+// 5556663297
+// 555MONDAYS
+// or
+// 3278426863
+// EARTHBOUND
+// also should work on different length phone numbers like numbers from france
 
 #include <iostream>
 #include <fstream>
 #include <chrono>
 using namespace std;
 
-string Number = "2262689249"; // 10
+string Number = "2262689249";
 string pisser = "";
 int position = 0;
 
