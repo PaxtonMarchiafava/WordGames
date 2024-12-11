@@ -9,3 +9,5 @@ So I went online to find a scrabble solver that I can use to do the hard work fo
 After writing the code, I rearranged my poor moms decoration to spell a new word. Having similarity to crossword had me and a brother of mine thinking though. It would theoretically be pretty simple to change the code to make words that intersect as well. This is exactly what I did.
 
 ![2 lines of blocks that vertically spell "Vagina" and horizontally spell "Sale", but the second 'A' in vagina uses the same block as the 'A' in sale](/Media/VaginaSale.png)
+
+The other files in this repo are just other similar projects that also use the giant word list that I have found and cumulated.
