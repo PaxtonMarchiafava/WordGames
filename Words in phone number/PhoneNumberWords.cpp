@@ -12,12 +12,12 @@
 #include <chrono>
 using namespace std;
 
-string Number = "2262689249";
+string Number = "3278426863";
 string pisser = "";
 int position = 0;
 
-string ReadFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/WordGames/Text Files/unigram_freq.txt";
-string PutFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/WordGames/Text Files/" + Number + "_Valid_Mnemonic.txt";
+string ReadFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/WordGames/TextFiles/unigram_freq.txt";
+string PutFileLocation = "C:/Users/paxto/OneDrive/Desktop/LocalProjects/WordGames/TextFiles/" + Number + "_Valid_Mnemonic.txt";
 
  // returns index of occurance of word in num
 int inside (string num, string word) {
@@ -136,18 +136,17 @@ int main () {
   ifstream GetFile; // file to read from
   GetFile.open(ReadFileLocation);
   while (!GetFile.is_open()) { // wait until open file
-    cout << "Get File unable to open" << endl;
+    cout << "Get File unable to open. Folder may not exist?" << endl;
     _sleep(5000);
     GetFile.open(ReadFileLocation); 
   }
 
-
   ofstream PutFile; // file to put to
   PutFile.open(PutFileLocation); // creates file
   while (!PutFile.is_open()) { // wait until open file
-    cout << "Put File unable to open" << endl;
+    cout << "Put File unable to open. Folder may not exist?" << endl;
     _sleep(5000);
-    GetFile.open(PutFileLocation); 
+    PutFile.open(PutFileLocation); 
   }
 
   cout << "files open. generating list" << endl;

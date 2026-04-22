@@ -1,2 +1,9 @@
 Words in phone number/PhoneNumberWords.exe
 Words in phone number/WordToPhoneNumber.exe
+TextFiles/VerifyWordList.exe
+Scrabble/ScrabbleSolver.exe
+WordMaxxingBlocks/WordMaxxingBlocks.exe
+TextFiles/
+!TextFiles/unigram_freq.txt
+!TextFiles/VerifyWordList.cpp
+*.exe
